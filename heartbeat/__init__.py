@@ -44,6 +44,7 @@ class HeartBeat(object):
         gateway = {'timestamp': ts,
                    'proto_version': 1,
                    'data': data}
+        LOG.debug(gateway)
         headers = {'content-type': 'application/json',
                    'x-stackdriver-apikey': self._api_key}
         r = requests.post(self.url, data=json.dumps(gateway),
@@ -55,9 +56,11 @@ class HeartBeat(object):
     def ping(self):
         metadata = boto.utils.get_instance_metadata()
         instance_id = metadata['instance-id']
+        LOG.debug('instance_id=%s', instance_id)
         az = metadata['placement']['availability-zone']
         # hacky - is there a better way to find the region name?
         region_name = az[0:-1]
+        LOG.debug('region=%s', region_name)
         ec2 = boto.ec2.connect_to_region(region_name)
         tags = ec2.get_all_tags(filters={'resource-id': instance_id})
         for tag in tags:
