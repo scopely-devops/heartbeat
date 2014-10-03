@@ -51,7 +51,7 @@ class HeartBeat(object):
                           headers=headers)
         if r.status_code != 201:
             LOG.error('(%s)Error writing to Stackdriver: %d',
-                      (self.name, r.status_code))
+                      (self.tag_name, r.status_code))
 
     def ping(self):
         metadata = boto.utils.get_instance_metadata()
