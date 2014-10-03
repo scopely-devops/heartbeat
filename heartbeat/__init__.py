@@ -67,3 +67,6 @@ class HeartBeat(object):
         for tag in tags:
             if tag.name == self.tag_name:
                 self.send_to_stackdriver(tag.value, instance_id)
+            else:
+                LOG.debug('tag.name=%s', tag.name)
+                LOG.debug('self.tag_name=%s', self.tag_name)
