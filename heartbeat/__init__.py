@@ -46,7 +46,7 @@ class HeartBeat(object):
                    'data': data}
         LOG.debug(gateway)
         headers = {'content-type': 'application/json',
-                   'x-stackdriver-apikey': self._api_key}
+                   'x-stackdriver-apikey': self.api_key}
         r = requests.post(self.url, data=json.dumps(gateway),
                           headers=headers)
         if r.status_code != 201:
@@ -67,6 +67,3 @@ class HeartBeat(object):
         for tag in tags:
             if tag.name == self.tag_name:
                 self.send_to_stackdriver(tag.value, instance_id)
-            else:
-                LOG.debug('tag.name=%s', tag.name)
-                LOG.debug('self.tag_name=%s', self.tag_name)
