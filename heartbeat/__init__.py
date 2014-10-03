@@ -63,6 +63,7 @@ class HeartBeat(object):
         LOG.debug('region=%s', region_name)
         ec2 = boto.ec2.connect_to_region(region_name)
         tags = ec2.get_all_tags(filters={'resource-id': instance_id})
+        LOG.debug(tags)
         for tag in tags:
             if tag.name == self.tag_name:
                 self.send_to_stackdriver(tag.value, instance_id)
