@@ -40,8 +40,7 @@ class HeartBeat(object):
         data = {
             'name': tag + '_heartbeat',
             'value': 1,
-            'collected_at': ts,
-            'instance': instance_id}
+            'collected_at': ts}
         gateway = {'timestamp': ts,
                    'proto_version': 1,
                    'data': data}
