@@ -11,7 +11,7 @@ requires = [
 
 setup(
     name='heartbeat',
-    version=open(os.path.join('skew', '_version')).read(),
+    version=open(os.path.join('heartbeat', '_version')).read(),
     description='Send a heartbeat custom metric to StackDriver',
     author='Mitch Garnaat',
     author_email='mitch@scopely.com',
