@@ -47,6 +47,7 @@ class HeartBeat(object):
         LOG.debug(gateway)
         headers = {'content-type': 'application/json',
                    'x-stackdriver-apikey': self.api_key}
+        LOG.debug(headers)
         r = requests.post(self.url, data=json.dumps(gateway),
                           headers=headers)
         if r.status_code != 201:
