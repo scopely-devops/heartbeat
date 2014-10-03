@@ -61,7 +61,7 @@ def set_debug_logger(logger_name='heartbeat', stream=None):
 def main(tagname=None, apikey=None, debug=False):
     if debug:
         set_debug_logger()
-    heartbeat = HeartBeat(tagname, apikey)
+    heartbeat = HeartBeat(apikey, tagname)
     heartbeat.ping()
 
 
