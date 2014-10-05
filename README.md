@@ -29,3 +29,33 @@ so you will need to ensure that boto credentials are available to the script
 when running on the Jenkins server, either by environment variables or via
 an IAM Role.  The script only needs access to the ``DescribeTags`` command
 in EC2.
+
+Jenkins Configuration
+---------------------
+
+There are probably lots of ways you could use heartbeat but the way we
+use it is to install it as a job on our Jenkins servers and schedule the job
+to run every 5 minutes or so.
+
+The actual command we run in Jenkins looks like this:
+
+    PYENV_HOME=$WORKSPACE/.pyenv/
+    
+    # Delete previously built virtualenv
+    if [ -d $PYENV_HOME ]; then
+        rm -rf $PYENV_HOME
+    fi
+
+    # Create virtualenv and install necessary packages
+    virtualenv --no-site-packages $PYENV_HOME
+    . $PYENV_HOME/bin/activate
+    pip install --quiet nosexcover
+    pip install --quiet pylint
+    pip install -r $WORKSPACE/requirements.txt
+    pip install --quiet $WORKSPACE/  # where your setup.py lives
+    $WORKSPACE/bin/heartbeat --debug --tagname Name
+
+This instructs heartbeat to use the value of the ``Name`` tag on the
+instance to construct the name of the custom metric written to StackDriver.
+This also writes debug output the console output to help find any issues
+in getting the configuration sorted out.
