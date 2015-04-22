@@ -53,6 +53,7 @@ class HeartBeat(object):
         if r.status_code != 201:
             LOG.error('(%s)Error writing to Stackdriver: %d',
                       self.tag_name, r.status_code)
+            raise IOError('Error writing to Stackdriver')
 
     def ping(self):
         metadata = boto.utils.get_instance_metadata()
@@ -68,3 +69,7 @@ class HeartBeat(object):
         for tag in tags:
             if tag.name == self.tag_name:
                 self.send_to_stackdriver(tag.value, instance_id)
+                return
+        LOG.error('Did not find requested tag: %s', self.tag_name)
+        raise KeyError('Requested tag not found on instance')
+        
