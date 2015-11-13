@@ -14,7 +14,7 @@ servers go down.
 Heartbeat accomplishes this by pushing a custom metric to Datadog. You can set
 this up as a job on the Jenkins server itself and run it at whatever interval
 you feel comfortable with.  We send a heartbeat every five minutes.  Then,
-within Datadog you can create an alert based on the absense of this heartbeat
+within Datadog you can create an alert based on the absence of this heartbeat
 for a period of time, e.g. 10 minutes.
 
 The name of the Datadog custom metric is determined by the value of a tag on the

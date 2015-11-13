@@ -19,6 +19,7 @@ import boto.ec2
 import boto.utils
 
 from datadog import initialize, api
+from datadog.api.constants import CheckStatus
 import time
 
 LOG = logging.getLogger(__name__)
@@ -42,8 +43,7 @@ class HeartBeat(object):
             'app_key': self.app_key
         }
         initialize(**options)
-
-        api.Metric.send(metric=tag + '_heartbeat', points=1)
+        api.ServiceCheck.check(check='jenkins.ok', host_name=tag + '_' + instance_id, status=CheckStatus.OK, message='Jenkins {} OK'.format(tag))
 
     def ping(self):
         metadata = boto.utils.get_instance_metadata()
