@@ -50,8 +50,13 @@ def set_debug_logger(logger_name='heartbeat', stream=None):
 )
 @click.option(
     '--apikey',
-    help="The StackDriver API Key",
+    help="The Datadog API Key",
     envvar='HEARTBEAT_APIKEY'
+)
+@click.option(
+    '--appkey',
+    help="The Datadog app Key",
+    envvar='HEARTBEAT_APPKEY'
 )
 @click.option(
     '--debug/--no-debug',
@@ -61,7 +66,7 @@ def set_debug_logger(logger_name='heartbeat', stream=None):
 def main(tagname=None, apikey=None, debug=False):
     if debug:
         set_debug_logger()
-    heartbeat = HeartBeat(apikey, tagname)
+    heartbeat = HeartBeat(apikey, appkey, tagname)
     heartbeat.ping()
 
 
