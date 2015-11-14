@@ -63,7 +63,7 @@ def set_debug_logger(logger_name='heartbeat', stream=None):
     default=False,
     help='Turn on debugging output'
 )
-def main(tagname=None, apikey=None, debug=False):
+def main(tagname=None, apikey=None, appkey=None, debug=False):
     if debug:
         set_debug_logger()
     heartbeat = HeartBeat(apikey, appkey, tagname)
